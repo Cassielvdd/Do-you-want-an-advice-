@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        color: white;
+        font-family: "Noto Sans", sans-serif;
+      }
+      body {
+        background-image: url(https://images.pexels.com/photos/1938351/pexels-photo-1938351.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 600px;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20vh;
+      }
+      .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: black;
+        box-shadow: 4px 4px 8px rgb(26, 26, 26);
+        height: 400px;
+        width: 400px;
+
+        border-radius: 50px;
+        padding: 10px;
+      }
+      .notify {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      h1 {
+        text-align: center;
+      }
+      .hide {
+        display: none;
+      }
+      button {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: aqua;
+        color: black;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      button:hover {
+        opacity: 0.8;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      footer {
+        text-align: center;
+        margin-top: 50px;
+      }
+      footer a {
+        text-decoration: none;
+      }
+      footer a:hover {
+        color: rgb(177, 176, 176);
+      }
+      @media screen and (max-width: 676px) {
+        .content {
+          width: 340px;
+          height: 350px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="content">
+        <div class="notify">
+          <h3>Do you want an advice?</h3>
+          <button id="search">Search</button>
+        </div>
+        <h1 class="hide"></h1>
+      </div>
+    </div>
+    <footer>
+      <p>
+        Build with love by
+        <a href="https://github.com/Cassielvdd">Pedro Cassiel</a>
+      </p>
+    </footer>
+  </body>
+  <script>
+    const btn = document.querySelector("button");
+    const random = Math.floor(Math.random() * 86);
+    console.log(random);
+    fetch(`https://api.adviceslip.com/advice/${random}`)
+      .then(async (res) => {
+        return await res.json();
+      })
+      .then((data) => {
+        btn.addEventListener("click", () => {
+          document.querySelector("h1").classList.remove("hide");
+          document.querySelector(".notify").classList.add("hide");
+          document.querySelector("h1").innerHTML = data.slip.advice;
+        });
+      });
+  </script>
+</html>
